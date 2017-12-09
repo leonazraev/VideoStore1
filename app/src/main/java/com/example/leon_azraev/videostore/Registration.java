@@ -12,20 +12,33 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class Registration extends AppCompatActivity {
     private static final int SELECTED_PICTURE=1;
+    public Button submit;
     ImageView iv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        Registration_to_Homepage();
         iv = (ImageView) findViewById(R.id.upload_img);
     }
     public void btnClick(View v){
         Intent intent2 = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent2,SELECTED_PICTURE);
+    }
+    public void Registration_to_Homepage() {
+        submit = findViewById(R.id.submit);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Registration.this, HomePage.class);
+                startActivity(intent);
+            }
+        });
     }
     protected  void  onActivityResult(int requestCode,int resultCode,Intent data)
     {

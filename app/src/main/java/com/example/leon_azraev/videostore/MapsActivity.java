@@ -23,11 +23,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+/*
         gpsTracker = new GPSTracker(getApplicationContext());
         mlocation = gpsTracker.getLocation();
 
         latitude = mlocation.getLatitude();
         longitude = mlocation.getLongitude();
+        */
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -51,7 +54,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
+        /*
         LatLng sydney = new LatLng(latitude,longitude);
+        */
+        LatLng sydney = new LatLng(31.771959,35.217018);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Im here"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }

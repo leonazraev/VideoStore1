@@ -1,34 +1,64 @@
 package com.example.leon_azraev.videostore;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.Build;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class Registration extends AppCompatActivity {
-    private static final int SELECTED_PICTURE=1;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+
+public class Registration extends Activity {
     public Button submit;
-    ImageView iv;
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private Button btnSelect;
+    private ImageView ivImage;
+    private String userChoosenTask;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         Registration_to_Homepage();
-        iv = (ImageView) findViewById(R.id.upload_img);
+        btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
+        btnSelect.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                selectImage();
+            }
+        });
+        ivImage = (ImageView) findViewById(R.id.ivImage);
     }
-    public void btnClick(View v){
-        Intent intent2 = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent2,SELECTED_PICTURE);
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (userChoosenTask.equals("Take Photo"))
+                        cameraIntent();
+                    else if (userChoosenTask.equals("Choose from Library"))
+                        galleryIntent();
+                } else {
+                    //code for deny
+                }
+                break;
+        }
     }
     public void Registration_to_Homepage() {
         submit = findViewById(R.id.submit);
@@ -40,32 +70,127 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
-    protected  void  onActivityResult(int requestCode,int resultCode,Intent data)
-    {
-        super.onActivityResult(requestCode,resultCode,data);
-        switch(requestCode){
-            case SELECTED_PICTURE:
-                if(resultCode == RESULT_OK) {
-                    Uri uri = data.getData();
 
-                    String[] projection = {MediaStore.Images.Media.DATA};
+    private void selectImage() {
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
 
-                    Cursor cursor = getContentResolver().query(uri,projection,null,null,null);
-                    cursor.moveToFirst();
+        AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
+        builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                boolean result = Utility.checkPermission(Registration.this);
 
-                    int columnIndex = cursor.getColumnIndex(projection[0]);
-                    String filePath = cursor.getString(columnIndex);
-                    cursor.close();
+                if (items[item].equals("Take Photo")) {
+                    userChoosenTask = "Take Photo";
+                    if (result)
+                        cameraIntent();
 
-                    Bitmap yourSelectedUmage = BitmapFactory.decodeFile(filePath);
-                    Drawable d = new BitmapDrawable(yourSelectedUmage);
+                } else if (items[item].equals("Choose from Library")) {
+                    userChoosenTask = "Choose from Library";
+                    if (result)
+                        galleryIntent();
 
-
-                    iv.setImageURI(uri);
-
-
-
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
                 }
+            }
+        });
+        builder.show();
+    }
+
+    private void galleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+    }
+
+    private void cameraIntent() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_CAMERA);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == SELECT_FILE) {
+                if (check_if_jpg_png(data) == true) {
+                    onSelectFromGalleryResult(data);
+                }
+            } else if (requestCode == REQUEST_CAMERA)
+                onCaptureImageResult(data);
         }
     }
+
+    private void onCaptureImageResult(Intent data) {
+        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+        File destination = new File(Environment.getExternalStorageDirectory(),
+                System.currentTimeMillis() + ".jpg");
+
+        FileOutputStream fo;
+        try {
+            destination.createNewFile();
+            fo = new FileOutputStream(destination);
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ivImage.setImageBitmap(thumbnail);
+    }
+
+    @SuppressWarnings("deprecation")
+    private void onSelectFromGalleryResult(Intent data) {
+
+        Bitmap bm = null;
+
+        if (data != null) {
+            //if(check_if_jpg_png(data)==true) {
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //}
+        }
+
+        ivImage.setImageBitmap(bm);
+    }
+
+    public boolean check_if_jpg_png(Intent result) {
+        Uri selectedImageUri = result.getData();
+        String s = selectedImageUri.getPath();
+
+
+        if (s.endsWith(".PNG") || s.endsWith(".JPG") || s.endsWith(".png") || s.endsWith(".jpg")
+                || s.endsWith(".jpeg") || s.endsWith(".JPEG"))
+
+        // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        @SuppressWarnings("deprecation")
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
 }
+

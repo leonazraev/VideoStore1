@@ -12,8 +12,10 @@
         android:layout_width="283dp"
         android:layout_height="45dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
@@ -21,17 +23,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.081"
-        app:srcCompat="@drawable/hp1"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:srcCompat="@drawable/hp1" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="88dp"
+        android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/lc1"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -39,42 +41,40 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.735"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintVertical_bias="0.735" />
 
     <Button
         android:id="@+id/read_me"
         android:layout_width="88dp"
         android:layout_height="80dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/rm"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73"
-        app:layout_constraintHorizontal_bias="1.0"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp" />
+        app:layout_constraintVertical_bias="0.73" />
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="80dp"
         android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
         android:text="User name:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.149"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toTopOf="@+id/first_name"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_page_" />
 
     <TextView
@@ -83,9 +83,9 @@
         android:layout_height="20dp"
         android:text="First name:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintLeft_toLeftOf="@+id/user_name"
-        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintBottom_toTopOf="@+id/last_name"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintLeft_toLeftOf="@+id/user_name"
         app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
     <TextView
@@ -94,9 +94,9 @@
         android:layout_height="20dp"
         android:text="City:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintLeft_toLeftOf="@+id/last_name"
-        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintBottom_toTopOf="@+id/street"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintLeft_toLeftOf="@+id/last_name"
         app:layout_constraintTop_toBottomOf="@+id/last_name" />
 
     <TextView
@@ -105,9 +105,9 @@
         android:layout_height="20dp"
         android:text="Last name:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintLeft_toLeftOf="@+id/first_name"
-        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintBottom_toTopOf="@+id/city_"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintLeft_toLeftOf="@+id/first_name"
         app:layout_constraintTop_toBottomOf="@+id/first_name" />
 
     <TextView
@@ -116,9 +116,9 @@
         android:layout_height="20dp"
         android:text="Street:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintLeft_toLeftOf="@+id/city_"
-        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintLeft_toLeftOf="@+id/city_"
         app:layout_constraintTop_toBottomOf="@+id/city_" />
 
     <TextView
@@ -127,18 +127,18 @@
         android:layout_height="20dp"
         android:text="Email:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintLeft_toLeftOf="@+id/street"
-        app:layout_constraintHorizontal_bias="0.298"
         app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.298"
+        app:layout_constraintLeft_toLeftOf="@+id/street"
         app:layout_constraintTop_toBottomOf="@+id/street" />
 
     <android.support.constraint.Guideline
+        android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/guideline"
-        app:layout_constraintGuide_begin="20dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="20dp" />
+        app:layout_constraintGuide_begin="20dp"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="0dp" />
 
 </android.support.constraint.ConstraintLayout>

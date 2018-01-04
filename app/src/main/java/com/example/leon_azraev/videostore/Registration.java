@@ -2,16 +2,15 @@ package com.example.leon_azraev.videostore;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -179,13 +178,28 @@ public class Registration extends Activity {
         Uri selectedImageUri = result.getData();
         String s = selectedImageUri.getPath();
 
+        if (Build.VERSION.SDK_INT < 11) {
+            if (RealPathUtil.getRealPathFromURI_BelowAPI11(this,selectedImageUri).toLowerCase().endsWith("png") || RealPathUtil.getRealPathFromURI_BelowAPI11(this,selectedImageUri).toLowerCase().endsWith("jpg")) {
+                // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
 
+                return true;
+            }
 
-        if (getRealPathFromURI1(selectedImageUri).toLowerCase().endsWith("png") || getRealPathFromURI1(selectedImageUri).toLowerCase().endsWith("jpg"))
+            return false;
+        } else if(Build.VERSION.SDK_INT >= 11 && Build.VERSION.SDK_INT<= 19) {
+            if (RealPathUtil.getRealPathFromURI_API11to19(this,selectedImageUri).toLowerCase().endsWith("png") || RealPathUtil.getRealPathFromURI_API11to19(this,selectedImageUri).toLowerCase().endsWith("jpg"))
 
-        // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
-        {
-            return true;
+            // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
+            {
+                return true;
+            }
+        } else if(Build.VERSION.SDK_INT > 19){
+            if (RealPathUtil.getRealPathFromURI_API20(this,selectedImageUri).toLowerCase().endsWith("png") || RealPathUtil.getRealPathFromURI_API20(this,selectedImageUri).toLowerCase().endsWith("jpg"))
+
+            // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
+            {
+                return true;
+            }
         }
         return false;
 
@@ -213,7 +227,7 @@ public class Registration extends Activity {
         }
         return result;
     }
-    public static String getRealPathFromURI_API19(Context context, Uri uri){
+ /*   public static String getRealPathFromURI_API19(Context context, Uri uri){
         String filePath = "";
         String wholeID = DocumentsContract.getDocumentId(uri);
 
@@ -236,7 +250,7 @@ public class Registration extends Activity {
         cursor.close();
         return filePath;
     }
-
+*/
 
 
 /*    public static String getRealPathFromURI_API11to18(Context context, Uri contentUri) {

@@ -2,6 +2,7 @@ package com.example.leon_azraev.videostore;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -178,8 +180,8 @@ public class Registration extends Activity {
         String s = selectedImageUri.getPath();
 
 
-        if (s.endsWith(".PNG") || s.endsWith(".JPG") || s.endsWith(".png") || s.endsWith(".jpg")
-                || s.endsWith(".jpeg") || s.endsWith(".JPEG"))
+
+        if (getRealPathFromURI_API19(this,selectedImageUri).toLowerCase().endsWith("png") || getRealPathFromURI_API19(this,selectedImageUri).toLowerCase().endsWith("jpg"))
 
         // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
         {
@@ -198,5 +200,33 @@ public class Registration extends Activity {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+
+    public static String getRealPathFromURI_API19(Context context, Uri uri){
+        String filePath = "";
+        String wholeID = DocumentsContract.getDocumentId(uri);
+
+        // Split at colon, use second item in the array
+        String id = wholeID.split(":")[1];
+
+        String[] column = { MediaStore.Images.Media.DATA };
+
+        // where id is equal to
+        String sel = MediaStore.Images.Media._ID + "=?";
+
+        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                column, sel, new String[]{ id }, null);
+
+        int columnIndex = cursor.getColumnIndex(column[0]);
+
+        if (cursor.moveToFirst()) {
+            filePath = cursor.getString(columnIndex);
+        }
+        cursor.close();
+        return filePath;
+    }
+
+
+
+
 }
 

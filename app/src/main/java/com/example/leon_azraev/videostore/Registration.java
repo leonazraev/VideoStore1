@@ -181,7 +181,7 @@ public class Registration extends Activity {
 
 
 
-        if (getRealPathFromURI_API19(this,selectedImageUri).toLowerCase().endsWith("png") || getRealPathFromURI_API19(this,selectedImageUri).toLowerCase().endsWith("jpg"))
+        if (getRealPathFromURI1(selectedImageUri).toLowerCase().endsWith("png") || getRealPathFromURI1(selectedImageUri).toLowerCase().endsWith("jpg"))
 
         // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
         {
@@ -200,7 +200,19 @@ public class Registration extends Activity {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
-
+    private String getRealPathFromURI1(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
     public static String getRealPathFromURI_API19(Context context, Uri uri){
         String filePath = "";
         String wholeID = DocumentsContract.getDocumentId(uri);
@@ -226,6 +238,37 @@ public class Registration extends Activity {
     }
 
 
+
+/*    public static String getRealPathFromURI_API11to18(Context context, Uri contentUri) {
+        String filePath = "";
+        if (contentUri.getHost().contains("com.android.providers.media")) {
+            // Image pick from recent
+            String wholeID = DocumentsContract.getDocumentId(contentUri);
+
+            // Split at colon, use second item in the array
+            String id = wholeID.split(":")[1];
+
+            String[] column = {MediaStore.Images.Media.DATA};
+
+            // where id is equal to
+            String sel = MediaStore.Images.Media._ID + "=?";
+
+            Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    column, sel, new String[]{id}, null);
+
+            int columnIndex = cursor.getColumnIndex(column[0]);
+
+            if (cursor.moveToFirst()) {
+                filePath = cursor.getString(columnIndex);
+            }
+            cursor.close();
+            return filePath;
+        } else {
+            // image pick from gallery
+            return  filePath;
+        }
+
+    }*/
 
 
 }

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -120,6 +121,11 @@ public class Registration extends Activity {
             if (requestCode == SELECT_FILE) {
                 if (check_if_jpg_png(data) == true) {
                     onSelectFromGalleryResult(data);
+                }
+                else
+                {
+                    Toast.makeText(this, "Error: You must choose png or jpg type", Toast.LENGTH_LONG).show();
+
                 }
             } else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);

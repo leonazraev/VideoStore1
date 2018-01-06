@@ -26,6 +26,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -44,12 +46,20 @@ public class Registration extends Activity {
     private String userChoosenTask;
     private EditText editTextUser;
     private EditText editTextPassword;
+    private EditText editTextFN;
+    private EditText editTextLN;
+    private EditText editTextCity;
+    private EditText editTextEmail;
+    private EditText editTextStreet;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
+    DatabaseReference userDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_registration);
+
+        userDB = FirebaseDatabase.getInstance().getReference("Users");
         Registration_to_Homepage();
         btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
         btnSelect.setOnClickListener(new OnClickListener() {
@@ -79,19 +89,75 @@ public class Registration extends Activity {
     }
     public void Registration_to_Homepage() {
         submit = findViewById(R.id.submit);
-        firebaseAuth = FirebaseAuth.getInstance();
+        //firebaseAuth = FirebaseAuth.getInstance();
         editTextUser = (EditText) findViewById(R.id.user_name);
         editTextPassword = (EditText) findViewById(R.id.password_);
+        editTextFN = (EditText)findViewById(R.id.first_name);
+        editTextLN = (EditText)findViewById(R.id.last_name);;
+        editTextCity = (EditText)findViewById(R.id.city);
+        editTextEmail = (EditText)findViewById(R.id.email);;
+        editTextStreet = (EditText)findViewById(R.id.street);;
         progressDialog = new ProgressDialog(this);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegisterUser();
+               // RegisterUser();
+                AddUserToDB();
                 Intent intent = new Intent(Registration.this, HomePage.class);
                 startActivity(intent);
                 finish();
             }
         });
+    }
+    private void AddUserToDB()
+    {
+        String UserName = editTextUser.getText().toString().trim();
+        String Password = editTextPassword.getText().toString().trim();
+        String FirstName = editTextFN.getText().toString().trim();
+        String LastName = editTextLN.getText().toString().trim();
+        String City = editTextCity.getText().toString().trim();
+        String Street = editTextStreet.getText().toString().trim();
+        String Email = editTextEmail.getText().toString().trim();
+
+        if(TextUtils.isEmpty(UserName))
+        {
+            Toast.makeText(this,"You must enter a user name!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(TextUtils.isEmpty(Password))
+        {
+            Toast.makeText(this,"You must enter a Password!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(TextUtils.isEmpty(FirstName))
+        {
+            Toast.makeText(this,"You must enter a first name!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(TextUtils.isEmpty(LastName))
+        {
+            Toast.makeText(this,"You must enter a last name!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(TextUtils.isEmpty(City))
+    {
+        Toast.makeText(this,"You must enter a city!",Toast.LENGTH_LONG).show();
+        return;
+    }
+        if(TextUtils.isEmpty(Street))
+        {
+            Toast.makeText(this,"You must enter a street!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(TextUtils.isEmpty(Email))
+        {
+            Toast.makeText(this,"You must enter a email!",Toast.LENGTH_LONG).show();
+            return;
+        }
+        String id = userDB.push().getKey();
+       User user = new  User(UserName,Password,Email,FirstName,LastName,City,Street);
+        userDB.child(id).setValue(user);
+
     }
     private void RegisterUser()
     {
@@ -122,11 +188,9 @@ public class Registration extends Activity {
                     {
                         Toast.makeText(Registration.this,"Register Faild!!",Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
     }
-
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};

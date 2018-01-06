@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "135380831818-361hdamopdbckpldl9lcli3k8p0ims9i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.leon_azraev.videostore",
+            "certificate_hash": "6b4e9040582ebe604bd7e3914288fd2945d86818"
+          }
+        },
+        {
           "client_id": "135380831818-1o0ut22ai60j9un70d7j1gg4j317cmcp.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135380831818-1o0ut22ai60j9un70d7j1gg4j317cmcp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

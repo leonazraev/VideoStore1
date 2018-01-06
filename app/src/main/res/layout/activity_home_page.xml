@@ -89,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/user_name" />
 
     <TextView
-        android:id="@+id/city_"
+        android:id="@+id/last_name"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:text="City:"
@@ -105,7 +105,7 @@
         android:layout_height="20dp"
         android:text="Last name:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/city_"
+        app:layout_constraintBottom_toTopOf="@+id/last_name"
         app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintLeft_toLeftOf="@+id/first_name"
         app:layout_constraintTop_toBottomOf="@+id/first_name" />
@@ -118,8 +118,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintLeft_toLeftOf="@+id/city_"
-        app:layout_constraintTop_toBottomOf="@+id/city_" />
+        app:layout_constraintLeft_toLeftOf="@+id/last_name"
+        app:layout_constraintTop_toBottomOf="@+id/last_name" />
 
     <TextView
         android:id="@+id/email"

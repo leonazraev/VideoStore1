@@ -89,6 +89,7 @@ public class Registration extends Activity {
                 RegisterUser();
                 Intent intent = new Intent(Registration.this, HomePage.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

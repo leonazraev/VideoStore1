@@ -89,20 +89,20 @@ public class Registration extends Activity {
     }
     public void Registration_to_Homepage() {
         submit = findViewById(R.id.submit);
-        //firebaseAuth = FirebaseAuth.getInstance();
+       // firebaseAuth = FirebaseAuth.getInstance();
         editTextUser = (EditText) findViewById(R.id.user_name);
         editTextPassword = (EditText) findViewById(R.id.password_);
         editTextFN = (EditText)findViewById(R.id.first_name);
-        editTextLN = (EditText)findViewById(R.id.last_name);;
+        editTextLN = (EditText)findViewById(R.id.last_name);
         editTextCity = (EditText)findViewById(R.id.city);
-        editTextEmail = (EditText)findViewById(R.id.email);;
-        editTextStreet = (EditText)findViewById(R.id.street);;
+        editTextEmail = (EditText)findViewById(R.id.email);
+        editTextStreet = (EditText)findViewById(R.id.street);
         progressDialog = new ProgressDialog(this);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // RegisterUser();
-                AddUserToDB();
+                //RegisterUser();
+               AddUserToDB();
                 Intent intent = new Intent(Registration.this, HomePage.class);
                 startActivity(intent);
                 finish();
@@ -156,8 +156,7 @@ public class Registration extends Activity {
         }
         String id = userDB.push().getKey();
        User user = new  User(UserName,Password,Email,FirstName,LastName,City,Street);
-        userDB.child(id).setValue(user);
-
+        userDB.child("Users").child(id).setValue(user);
     }
     private void RegisterUser()
     {

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "135380831818",
+    "firebase_url": "https://videostore-67d1c.firebaseio.com",
+    "project_id": "videostore-67d1c",
+    "storage_bucket": "videostore-67d1c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135380831818:android:1e66eea8c5924b0f",
+        "android_client_info": {
+          "package_name": "com.example.leon_azraev.videostore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135380831818-1o0ut22ai60j9un70d7j1gg4j317cmcp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPbJI1DF7MWaM3lKn2cMRkPMaynZcGaq8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

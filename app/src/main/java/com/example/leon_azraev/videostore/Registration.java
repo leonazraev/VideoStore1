@@ -2,6 +2,7 @@ package com.example.leon_azraev.videostore;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,16 +13,27 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import static com.example.leon_azraev.videostore.R.layout.activity_registration;
 
 
 public class Registration extends Activity {
@@ -30,10 +42,14 @@ public class Registration extends Activity {
     private Button btnSelect;
     private ImageView ivImage;
     private String userChoosenTask;
+    private EditText editTextUser;
+    private EditText editTextPassword;
+    private ProgressDialog progressDialog;
+    private FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registration);
+        setContentView(activity_registration);
         Registration_to_Homepage();
         btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
         btnSelect.setOnClickListener(new OnClickListener() {
@@ -63,13 +79,51 @@ public class Registration extends Activity {
     }
     public void Registration_to_Homepage() {
         submit = findViewById(R.id.submit);
+        firebaseAuth = FirebaseAuth.getInstance();
+        editTextUser = (EditText) findViewById(R.id.user_name);
+        editTextPassword = (EditText) findViewById(R.id.password_);
+        progressDialog = new ProgressDialog(this);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegisterUser();
                 Intent intent = new Intent(Registration.this, HomePage.class);
                 startActivity(intent);
             }
         });
+    }
+    private void RegisterUser()
+    {
+        String UserName = editTextUser.getText().toString().trim();
+        String Password = editTextPassword.getText().toString().trim();
+
+        if(TextUtils.isEmpty(UserName))
+        {
+            Toast.makeText(this,"Please enter user name",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(TextUtils.isEmpty(Password))
+        {
+            Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
+            return;
+        }
+        progressDialog.setMessage("Register User...");
+        progressDialog.show();
+        firebaseAuth.createUserWithEmailAndPassword(UserName,Password)
+            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful())
+                    {
+                        Toast.makeText(Registration.this,"Register Successful!",Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(Registration.this,"Register Faild!!",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
     }
 
     private void selectImage() {

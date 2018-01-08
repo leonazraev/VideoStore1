@@ -68,7 +68,19 @@ public class Registration extends Activity {
         editTextEmail = (EditText)findViewById(R.id.email);
         editTextStreet = (EditText)findViewById(R.id.street);
         progressDialog = new ProgressDialog(this);
-        Registration_to_Homepage();
+        submit = findViewById(R.id.submit);
+        btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddUserToDB();
+                RegisterUser();
+
+
+            }
+        });
+
+        //Registration_to_Homepage();
         btnSelect.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -100,8 +112,9 @@ public class Registration extends Activity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegisterUser();
+
                 AddUserToDB();
+                RegisterUser();
             }
         });
     }
@@ -114,6 +127,7 @@ public class Registration extends Activity {
         String City = editTextCity.getText().toString();
         String Street = editTextStreet.getText().toString();
         String Email = editTextEmail.getText().toString();
+
         if(TextUtils.isEmpty(UserName))
         {
             Toast.makeText(this,"You must enter a user name!",Toast.LENGTH_LONG).show();

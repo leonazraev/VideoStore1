@@ -52,10 +52,7 @@ public class HomePage extends AppCompatActivity {
     }
 
     private void requestPermission() {
-
-
             ActivityCompat.requestPermissions(HomePage.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERMISSION_REQUEST_CODE );
-
     }
 
     @Override

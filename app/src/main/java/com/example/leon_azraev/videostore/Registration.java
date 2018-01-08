@@ -58,10 +58,30 @@ public class Registration extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_registration);
-
         userDB = FirebaseDatabase.getInstance().getReference("Users");
-        Registration_to_Homepage();
+        // firebaseAuth = FirebaseAuth.getInstance();
+        editTextUser = (EditText) findViewById(R.id.user_name);
+        editTextPassword = (EditText) findViewById(R.id.password_);
+        editTextFN = (EditText)findViewById(R.id.first_name);
+        editTextLN = (EditText)findViewById(R.id.last_name);
+        editTextCity = (EditText)findViewById(R.id.city);
+        editTextEmail = (EditText)findViewById(R.id.email);
+        editTextStreet = (EditText)findViewById(R.id.street);
+        progressDialog = new ProgressDialog(this);
+        submit = findViewById(R.id.submit);
         btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //RegisterUser();
+                AddUserToDB();
+                Intent intent = new Intent(Registration.this, HomePage.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        //Registration_to_Homepage();
         btnSelect.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -89,20 +109,12 @@ public class Registration extends Activity {
     }
     public void Registration_to_Homepage() {
         submit = findViewById(R.id.submit);
-       // firebaseAuth = FirebaseAuth.getInstance();
-        editTextUser = (EditText) findViewById(R.id.user_name);
-        editTextPassword = (EditText) findViewById(R.id.password_);
-        editTextFN = (EditText)findViewById(R.id.first_name);
-        editTextLN = (EditText)findViewById(R.id.last_name);
-        editTextCity = (EditText)findViewById(R.id.city);
-        editTextEmail = (EditText)findViewById(R.id.email);
-        editTextStreet = (EditText)findViewById(R.id.street);
-        progressDialog = new ProgressDialog(this);
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //RegisterUser();
-               AddUserToDB();
+                AddUserToDB();
                 Intent intent = new Intent(Registration.this, HomePage.class);
                 startActivity(intent);
                 finish();
@@ -111,14 +123,14 @@ public class Registration extends Activity {
     }
     private void AddUserToDB()
     {
-        String UserName = editTextUser.getText().toString().trim();
-        String Password = editTextPassword.getText().toString().trim();
-        String FirstName = editTextFN.getText().toString().trim();
-        String LastName = editTextLN.getText().toString().trim();
-        String City = editTextCity.getText().toString().trim();
-        String Street = editTextStreet.getText().toString().trim();
-        String Email = editTextEmail.getText().toString().trim();
-
+        String UserName = editTextUser.getText().toString();
+        String Password = editTextPassword.getText().toString();
+        String FirstName = editTextFN.getText().toString();
+        String LastName = editTextLN.getText().toString();
+        String City = editTextCity.getText().toString();
+        String Street = editTextStreet.getText().toString();
+        String Email = editTextEmail.getText().toString();
+/*
         if(TextUtils.isEmpty(UserName))
         {
             Toast.makeText(this,"You must enter a user name!",Toast.LENGTH_LONG).show();
@@ -140,10 +152,10 @@ public class Registration extends Activity {
             return;
         }
         if(TextUtils.isEmpty(City))
-    {
-        Toast.makeText(this,"You must enter a city!",Toast.LENGTH_LONG).show();
-        return;
-    }
+        {
+            Toast.makeText(this,"You must enter a city!",Toast.LENGTH_LONG).show();
+            return;
+        }
         if(TextUtils.isEmpty(Street))
         {
             Toast.makeText(this,"You must enter a street!",Toast.LENGTH_LONG).show();
@@ -153,10 +165,10 @@ public class Registration extends Activity {
         {
             Toast.makeText(this,"You must enter a email!",Toast.LENGTH_LONG).show();
             return;
-        }
+        }*/
         String id = userDB.push().getKey();
-       User user = new  User(UserName,Password,Email,FirstName,LastName,City,Street);
-        userDB.child("Users").child(id).setValue(user);
+        User user = new  User(UserName,Password,Email,FirstName,LastName,City,Street);
+        userDB.child(id).setValue(user);
     }
     private void RegisterUser()
     {
@@ -176,19 +188,19 @@ public class Registration extends Activity {
         progressDialog.setMessage("Register User...");
         progressDialog.show();
         firebaseAuth.createUserWithEmailAndPassword(UserName,Password)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful())
-                    {
-                        Toast.makeText(Registration.this,"Register Successful!",Toast.LENGTH_SHORT).show();
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                            Toast.makeText(Registration.this,"Register Successful!",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(Registration.this,"Register Faild!!",Toast.LENGTH_SHORT).show();
+                        }
                     }
-                    else
-                    {
-                        Toast.makeText(Registration.this,"Register Faild!!",Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+                });
     }
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",

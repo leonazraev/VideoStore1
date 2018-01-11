@@ -21,8 +21,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,6 +39,9 @@ import static com.example.leon_azraev.videostore.R.layout.activity_registration;
 
 public class Registration extends Activity {
     public Button submit;
+    // private FirebaseAuth firebaseAuth;
+    DatabaseReference userDB;
+    DatabaseReference managerDB;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     private Button btnSelect;
     private ImageView ivImage;
@@ -47,9 +54,8 @@ public class Registration extends Activity {
     private EditText editTextEmail;
     private EditText editTextStreet;
     private ProgressDialog progressDialog;
-   // private FirebaseAuth firebaseAuth;
-    DatabaseReference userDB;
-    DatabaseReference managerDB;
+    private String un;
+    private StorageReference mStorage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,6 +129,7 @@ public class Registration extends Activity {
         String City = editTextCity.getText().toString();
         String Street = editTextStreet.getText().toString();
         String Email = editTextEmail.getText().toString();
+        un = UserName;
 
         if(TextUtils.isEmpty(UserName))
         {
@@ -248,6 +255,15 @@ public class Registration extends Activity {
     }
 
     private void onCaptureImageResult(Intent data) {
+        Uri uri = data.getData();
+        mStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference filepath = mStorage.child(un).child(uri.getLastPathSegment());
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        });
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
@@ -272,7 +288,15 @@ public class Registration extends Activity {
 
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
+        Uri uri = data.getData();
+        mStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference filepath = mStorage.child(un).child(uri.getLastPathSegment());
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+            }
+        });
         Bitmap bm = null;
 
         if (data != null) {
@@ -291,7 +315,6 @@ public class Registration extends Activity {
     public boolean check_if_jpg_png(Intent result) {
         Uri selectedImageUri = result.getData();
         String s = selectedImageUri.getPath();
-
         if (Build.VERSION.SDK_INT < 11) {
             if (RealPathUtil.getRealPathFromURI_BelowAPI11(this,selectedImageUri).toLowerCase().endsWith("png") || RealPathUtil.getRealPathFromURI_BelowAPI11(this,selectedImageUri).toLowerCase().endsWith("jpg")) {
                 // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))

@@ -11,44 +11,52 @@
         android:id="@+id/streetTxt"
         android:layout_width="80dp"
         android:layout_height="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/street"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/emailTxt"
         app:layout_constraintRight_toRightOf="@+id/emailTxt"
-        app:layout_constraintTop_toTopOf="@+id/street"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.514" />
 
     <TextView
         android:id="@+id/cityTxt"
         android:layout_width="80dp"
         android:layout_height="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/city1"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/streetTxt"
         app:layout_constraintRight_toRightOf="@+id/streetTxt"
-        app:layout_constraintTop_toTopOf="@+id/city1"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.588" />
 
     <TextView
         android:id="@+id/emailTxt"
         android:layout_width="80dp"
         android:layout_height="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/email"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/lastNameTxt"
         app:layout_constraintRight_toRightOf="@+id/lastNameTxt"
-        app:layout_constraintTop_toTopOf="@+id/email"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.435" />
 
     <TextView
         android:id="@+id/lastNameTxt"
         android:layout_width="80dp"
         android:layout_height="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/last_name1"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/firstNameTxt"
         app:layout_constraintRight_toRightOf="@+id/firstNameTxt"
-        app:layout_constraintTop_toTopOf="@+id/last_name1"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.357" />
 
     <TextView
@@ -56,12 +64,12 @@
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/first_name"
+        app:layout_constraintBottom_toTopOf="@+id/lastNameTxt"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="@+id/usrNameTxt"
         app:layout_constraintRight_toRightOf="@+id/usrNameTxt"
-        app:layout_constraintTop_toTopOf="@+id/first_name"
-        app:layout_constraintVertical_bias="0.512" />
+        app:layout_constraintTop_toBottomOf="@+id/usrNameTxt"
+        app:layout_constraintVertical_bias="0.44" />
 
     <ImageView
         android:id="@+id/home_page_"
@@ -73,13 +81,15 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:contentDescription=""
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.081"
-        app:srcCompat="@drawable/hp1" />
+        app:srcCompat="@drawable/hp1"
+        tools:ignore="ContentDescription" />
 
     <Button
         android:id="@+id/button2"
@@ -103,16 +113,18 @@
         android:id="@+id/read_me"
         android:layout_width="88dp"
         android:layout_height="80dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/rm"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.971"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.73" />
 
     <TextView
@@ -219,16 +231,19 @@
         android:id="@+id/usrNameTxt"
         android:layout_width="80dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/user_name"
-        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.174" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.172" />
 
     <TextView
         android:id="@+id/last_name1"
@@ -251,13 +266,5 @@
         app:layout_constraintHorizontal_bias="0.118"
         app:layout_constraintLeft_toLeftOf="@+id/street"
         app:layout_constraintTop_toBottomOf="@+id/street" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/common_full_open_on_phone"
-        tools:layout_editor_absoluteX="270dp"
-        tools:layout_editor_absoluteY="114dp" />
 
 </android.support.constraint.ConstraintLayout>

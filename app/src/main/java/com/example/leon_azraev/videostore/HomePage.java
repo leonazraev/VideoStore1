@@ -10,15 +10,38 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomePage extends AppCompatActivity {
 
 
     private static final int PERMISSION_REQUEST_CODE = 1;
+
+
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         HomePage_to_MapsActivity();
+        Intent i=getIntent();
+        User usr=(User)i.getParcelableExtra("myUSER");
+
+        TextView t1 = (TextView) findViewById(R.id.usrNameTxt);
+        TextView t2 = (TextView) findViewById(R.id.firstNameTxt);
+        TextView t3 = (TextView) findViewById(R.id.lastNameTxt);
+        TextView t4 = (TextView) findViewById(R.id.emailTxt);
+        TextView t5 = (TextView) findViewById(R.id.streetTxt);
+        TextView t6 = (TextView) findViewById(R.id.cityTxt);
+
+        t1.setText(usr.getUserName());
+        t2.setText(usr.getFirstName());
+        t3.setText(usr.getPassword());
+        t4.setText(usr.getEmail());
+        t5.setText(usr.getStreet());
+        t6.setText(usr.getCity());
+
+
     }
     public Button button2;
     public Button read_me;

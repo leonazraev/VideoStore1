@@ -1,10 +1,13 @@
 package com.example.leon_azraev.videostore;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Leon-Azraev on 06/01/2018.
  */
 
-public class User {
+public class User implements Parcelable {
     String FirstName;
     String LastName;
     String Password;
@@ -12,6 +15,28 @@ public class User {
     String City;
     String Street;
     String UserName;
+
+    protected User(Parcel in) {
+        FirstName = in.readString();
+        LastName = in.readString();
+        Password = in.readString();
+        Email = in.readString();
+        City = in.readString();
+        Street = in.readString();
+        UserName = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getFirstName() {
         return FirstName;
@@ -90,5 +115,21 @@ public class User {
         this.UserName = "";
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(FirstName);
+        parcel.writeString(LastName);
+        parcel.writeString(Password);
+        parcel.writeString(Email);
+        parcel.writeString(City);
+        parcel.writeString(Street);
+        parcel.writeString(UserName);
+
+    }
 }
 

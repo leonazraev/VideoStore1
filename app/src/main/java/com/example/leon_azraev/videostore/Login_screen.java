@@ -50,7 +50,7 @@ public class Login_screen extends AppCompatActivity {
                         int count=0;
                         for (DataSnapshot k:dataSnapshot.getChildren()) {
 
-                            for (DataSnapshot d:k.getChildren()) {
+                                for (DataSnapshot d:k.getChildren()) {
 
                                 if (d.getKey().equals("userName")) {
                                     if (u.equals(d.getValue().toString())) {
@@ -74,33 +74,47 @@ public class Login_screen extends AppCompatActivity {
                                         {
                                             usr.setPassword(m.getValue().toString());
                                         }
-                                        if(d.getKey().equals("firstName"))
+                                        if(m.getKey().equals("firstName"))
                                         {
                                             usr.setFirstName(m.getValue().toString());
                                         }
-                                        if(d.getKey().equals("lastName"))
+                                        if(m.getKey().equals("lastName"))
                                         {
                                             usr.setLastName(m.getValue().toString());
                                         }
-                                        if(d.getKey().equals("street"))
+                                        if(m.getKey().equals("street"))
                                         {
                                             usr.setStreet(m.getValue().toString());
                                         }
-                                        if(d.getKey().equals("city"))
+                                        if(m.getKey().equals("city"))
                                         {
                                             usr.setCity(m.getValue().toString());
                                         }
+                                        if(m.getKey().equals("email"))
+                                        {
+                                            usr.setEmail(m.getValue().toString());
+                                        }
+
+                                    }
+                                    if(count==2) {
                                         Intent intent = new Intent(Login_screen.this, HomePage.class);
+                                        intent.putExtra("myUSER", usr);
                                         startActivity(intent);
+                                        count=0;
                                         finish();
+
+                                        return;
                                     }
                                 }
 
                             }
 
+
+                        }
+                        if(count!=2) {
+                            Toast.makeText(Login_screen.this, "No such user in the system", Toast.LENGTH_SHORT).show();
                         }
 
-                            Toast.makeText(Login_screen.this, "No such user in the system", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -109,6 +123,7 @@ public class Login_screen extends AppCompatActivity {
 
                     }
                 });
+
 
             }
         });

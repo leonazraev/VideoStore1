@@ -7,6 +7,82 @@
     android:background="@drawable/bk4"
     tools:context="com.example.leon_azraev.videostore.HomePage">
 
+    <TextView
+        android:id="@+id/streetTxt"
+        android:layout_width="61dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.451"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.535" />
+
+    <TextView
+        android:id="@+id/cityTxt"
+        android:layout_width="61dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.418"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.611" />
+
+    <TextView
+        android:id="@+id/emailTxt"
+        android:layout_width="61dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.46" />
+
+    <TextView
+        android:id="@+id/lastNameTxt"
+        android:layout_width="61dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.413"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.372" />
+
+    <TextView
+        android:id="@+id/firstNameTxt"
+        android:layout_width="61dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.42"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.258" />
+
     <ImageView
         android:id="@+id/home_page_"
         android:layout_width="283dp"
@@ -27,7 +103,7 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="70dp"
+        android:layout_width="88dp"
         android:layout_height="70dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
@@ -55,7 +131,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/rm"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.971"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -65,50 +141,36 @@
         android:id="@+id/user_name"
         android:layout_width="80dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="0dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="66dp"
         android:text="User name:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/first_name"
-        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_page_" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.205" />
 
     <TextView
         android:id="@+id/first_name"
         android:layout_width="80dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="66dp"
         android:text="First name:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/last_name"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintLeft_toLeftOf="@+id/user_name"
-        app:layout_constraintTop_toBottomOf="@+id/user_name" />
-
-    <TextView
-        android:id="@+id/last_name"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:text="City:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/street"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintLeft_toLeftOf="@+id/last_name"
-        app:layout_constraintTop_toBottomOf="@+id/last_name" />
-
-    <TextView
-        android:id="@+id/last_name"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:text="Last name:"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/last_name"
-        app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintLeft_toLeftOf="@+id/first_name"
-        app:layout_constraintTop_toBottomOf="@+id/first_name" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.288" />
 
     <TextView
         android:id="@+id/street"
@@ -116,21 +178,27 @@
         android:layout_height="20dp"
         android:text="Street:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
         app:layout_constraintHorizontal_bias="0.149"
-        app:layout_constraintLeft_toLeftOf="@+id/last_name"
-        app:layout_constraintTop_toBottomOf="@+id/last_name" />
+        app:layout_constraintVertical_bias="0.538"
+        app:layout_constraintLeft_toLeftOf="@+id/email" />
 
     <TextView
         android:id="@+id/email"
         android:layout_width="80dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="66dp"
         android:text="Email:"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.298"
-        app:layout_constraintLeft_toLeftOf="@+id/street"
-        app:layout_constraintTop_toBottomOf="@+id/street" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.463"
+        tools:layout_editor_absoluteX="50dp" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -140,5 +208,87 @@
         app:layout_constraintGuide_begin="20dp"
         tools:layout_editor_absoluteX="20dp"
         tools:layout_editor_absoluteY="0dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline2"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline3"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline4"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="horizontal" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline5"
+        app:layout_constraintGuide_begin="20dp"
+        android:orientation="vertical" />
+
+    <TextView
+        android:id="@+id/usrNameTxt"
+        android:layout_width="61dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.172" />
+
+    <TextView
+        android:id="@+id/last_name1"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:text="Last name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintVertical_bias="0.374" />
+
+    <TextView
+        android:id="@+id/city1"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:text="City"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_marginRight="26dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.159"
+        app:layout_constraintVertical_bias="0.61" />
 
 </android.support.constraint.ConstraintLayout>

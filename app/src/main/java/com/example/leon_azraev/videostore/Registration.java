@@ -64,8 +64,8 @@ public class Registration extends Activity {
         editTextUser = (EditText) findViewById(R.id.user_name);
         editTextPassword = (EditText) findViewById(R.id.password_);
         editTextFN = (EditText)findViewById(R.id.first_name);
-        editTextLN = (EditText)findViewById(R.id.last_name);
-        editTextCity = (EditText)findViewById(R.id.city);
+        editTextLN = (EditText)findViewById(R.id.city_);
+        editTextCity = (EditText)findViewById(R.id.city_);
         editTextEmail = (EditText)findViewById(R.id.email);
         editTextStreet = (EditText)findViewById(R.id.street);
         progressDialog = new ProgressDialog(this);

@@ -56,6 +56,7 @@ public class Registration extends Activity {
     private ProgressDialog progressDialog;
     private String un;
     private StorageReference mStorage;
+    private Intent intent_upload;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +70,7 @@ public class Registration extends Activity {
         editTextCity = (EditText)findViewById(R.id.city_);
         editTextEmail = (EditText)findViewById(R.id.email);
         editTextStreet = (EditText)findViewById(R.id.street);
-        progressDialog = new ProgressDialog(this);
+       // progressDialog = new ProgressDialog(this);
         submit = findViewById(R.id.submit);
         btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +116,7 @@ public class Registration extends Activity {
             @Override
             public void onClick(View view) {
 
-                AddUserToDB();
+               // AddUserToDB();
              //   RegisterUser();
             }
         });
@@ -169,7 +170,16 @@ public class Registration extends Activity {
         String id = userDB.push().getKey();
         User user = new  User(UserName,Password,Email,FirstName,LastName,City,Street);
         userDB.child(id).setValue(user);
-        Intent intent = new Intent(Registration.this, HomePage.class);
+        Uri uri = intent_upload.getData();
+        mStorage = FirebaseStorage.getInstance().getReference();
+        StorageReference filepath = mStorage.child(un).child(uri.getLastPathSegment());
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+            }
+        });
+        Intent intent = new Intent(Registration.this, Login_screen.class);
         startActivity(intent);
         finish();
     }
@@ -255,15 +265,7 @@ public class Registration extends Activity {
     }
 
     private void onCaptureImageResult(Intent data) {
-        Uri uri = data.getData();
-        mStorage = FirebaseStorage.getInstance().getReference();
-        StorageReference filepath = mStorage.child(un).child(uri.getLastPathSegment());
-        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-            }
-        });
+        intent_upload = data;
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
@@ -288,25 +290,17 @@ public class Registration extends Activity {
 
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
-        Uri uri = data.getData();
-        mStorage = FirebaseStorage.getInstance().getReference();
-        StorageReference filepath = mStorage.child(un).child(uri.getLastPathSegment());
-        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-            }
-        });
+       intent_upload = data;
         Bitmap bm = null;
 
         if (data != null) {
-            //if(check_if_jpg_png(data)==true) {
+//            if(check_if_jpg_png(data)==true) {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //}
+//            }
         }
 
         ivImage.setImageBitmap(bm);

@@ -54,12 +54,13 @@ public class Registration extends Activity {
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     DatabaseReference userDB;
+    DatabaseReference managerDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_registration);
         userDB = FirebaseDatabase.getInstance().getReference("Users");
-         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         editTextUser = (EditText) findViewById(R.id.user_name);
         editTextPassword = (EditText) findViewById(R.id.password_);
         editTextFN = (EditText)findViewById(R.id.first_name);

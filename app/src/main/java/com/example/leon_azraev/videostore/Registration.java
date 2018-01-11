@@ -309,7 +309,7 @@ public class Registration extends Activity {
     public boolean check_if_jpg_png(Intent result) {
         Uri selectedImageUri = result.getData();
         String s = selectedImageUri.getPath();
-        if (Build.VERSION.SDK_INT < 11) {
+ /*       if (Build.VERSION.SDK_INT < 11) {
             if (RealPathUtil.getRealPathFromURI_BelowAPI11(this,selectedImageUri).toLowerCase().endsWith("png") || RealPathUtil.getRealPathFromURI_BelowAPI11(this,selectedImageUri).toLowerCase().endsWith("jpg")) {
                 // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
 
@@ -331,9 +331,13 @@ public class Registration extends Activity {
             {
                 return true;
             }
+        }*/
+        if (getRealPathFromURI(selectedImageUri).toLowerCase().endsWith("png") || getRealPathFromURI(selectedImageUri).toLowerCase().endsWith("jpg")) {
+            // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
+
+            return true;
         }
         return false;
-
     }
 
     public String getRealPathFromURI(Uri uri) {

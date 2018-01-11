@@ -42,30 +42,66 @@ public class Login_screen extends AppCompatActivity {
                 userDB.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        User usr = new User();
                         user_name=(EditText) findViewById(R.id.user_name_);
                         password=(EditText) findViewById(R.id.password_);
                         String u=user_name.getText().toString();
                         String p=password.getText().toString();
                         int count=0;
-                        for (DataSnapshot d:dataSnapshot.getChildren()){
-                            if(d.getKey().equals("userName")) {
-                                if (u.equals(d.getValue().toString())) {
-                                    count++;
+                        for (DataSnapshot k:dataSnapshot.getChildren()) {
+
+                            for (DataSnapshot d:k.getChildren()) {
+
+                                if (d.getKey().equals("userName")) {
+                                    if (u.equals(d.getValue().toString())) {
+                                        count++;
+                                    }
                                 }
-                            }
-                            if(d.getKey().equals("password")){
-                                if (p.equals(d.getValue().toString())) {
-                                    count++;
+                                if (d.getKey().equals("password")) {
+                                    if (p.equals(d.getValue().toString())) {
+                                        count++;
+                                    }
                                 }
+                                if(count==2)
+                                {
+                                    for (DataSnapshot m:k.getChildren())
+                                    {
+                                        if(m.getKey().equals("userName"))
+                                        {
+                                            usr.setUserName(m.getValue().toString());
+                                        }
+                                        if(m.getKey().equals("password"))
+                                        {
+                                            usr.setPassword(m.getValue().toString());
+                                        }
+                                        if(d.getKey().equals("firstName"))
+                                        {
+                                            usr.setFirstName(m.getValue().toString());
+                                        }
+                                        if(d.getKey().equals("lastName"))
+                                        {
+                                            usr.setLastName(m.getValue().toString());
+                                        }
+                                        if(d.getKey().equals("street"))
+                                        {
+                                            usr.setStreet(m.getValue().toString());
+                                        }
+                                        if(d.getKey().equals("city"))
+                                        {
+                                            usr.setCity(m.getValue().toString());
+                                        }
+                                        Intent intent = new Intent(Login_screen.this, HomePage.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                }
+
                             }
+
                         }
-                        if(count==2){
-                            Intent intent = new Intent(Login_screen.this, HomePage.class);
-                            startActivity(intent);
-                        }
-                        else{
+
                             Toast.makeText(Login_screen.this, "No such user in the system", Toast.LENGTH_SHORT).show();
-                        }
+
                     }
 
                     @Override

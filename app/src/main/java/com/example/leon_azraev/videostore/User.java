@@ -79,6 +79,16 @@ public class User {
         this.Street = Street;
         this.UserName = UserName;
     }
+    public User()
+    {
+        this.FirstName = "";
+        this.LastName = "";
+        this.Password ="";
+        this.Email = "";
+        this.City = "";
+        this.Street = "";
+        this.UserName = "";
+    }
 
 }
 

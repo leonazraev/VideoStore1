@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,10 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -52,7 +47,7 @@ public class Registration extends Activity {
     private EditText editTextEmail;
     private EditText editTextStreet;
     private ProgressDialog progressDialog;
-    private FirebaseAuth firebaseAuth;
+   // private FirebaseAuth firebaseAuth;
     DatabaseReference userDB;
     DatabaseReference managerDB;
     @Override
@@ -60,7 +55,7 @@ public class Registration extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(activity_registration);
         userDB = FirebaseDatabase.getInstance().getReference("Users");
-        firebaseAuth = FirebaseAuth.getInstance();
+      //  firebaseAuth = FirebaseAuth.getInstance();
         editTextUser = (EditText) findViewById(R.id.user_name);
         editTextPassword = (EditText) findViewById(R.id.password_);
         editTextFN = (EditText)findViewById(R.id.first_name);
@@ -75,7 +70,7 @@ public class Registration extends Activity {
             @Override
             public void onClick(View view) {
                 AddUserToDB();
-                RegisterUser();
+            //    RegisterUser();
 
 
             }
@@ -115,7 +110,7 @@ public class Registration extends Activity {
             public void onClick(View view) {
 
                 AddUserToDB();
-                RegisterUser();
+             //   RegisterUser();
             }
         });
     }
@@ -171,7 +166,7 @@ public class Registration extends Activity {
         startActivity(intent);
         finish();
     }
-    private void RegisterUser()
+   /* private void RegisterUser()
     {
         String Email = editTextEmail.getText().toString();
         String Password = editTextPassword.getText().toString().trim();
@@ -191,7 +186,7 @@ public class Registration extends Activity {
                         }
                     }
                 });
-    }
+    }*/
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};

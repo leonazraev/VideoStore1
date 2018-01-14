@@ -22,6 +22,9 @@ public class Login_screen extends AppCompatActivity {
     public EditText user_name;
     public EditText password;
     private DatabaseReference userDB;
+    private DatabaseReference userDB2;
+
+
 
     public void Login_screen_to_Registration() {
         register_ = findViewById(R.id.register_);
@@ -39,6 +42,56 @@ public class Login_screen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 userDB= FirebaseDatabase.getInstance().getReference("Users");
+                userDB2 =  FirebaseDatabase.getInstance().getReference("Manager");
+                userDB2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        user_name=(EditText) findViewById(R.id.user_name_);
+                        password=(EditText) findViewById(R.id.password_);
+                        String u=user_name.getText().toString();
+                        String p=password.getText().toString();
+                        int count =0;
+
+                        for (DataSnapshot k:dataSnapshot.getChildren()) {
+
+                            if (k.getKey().equals("userName")) {
+                                if (u.equals(k.getValue().toString())) {
+                                    count++;
+                                }
+                            }
+                            if (k.getKey().equals("password")) {
+                                if (p.equals(k.getValue().toString())) {
+                                    count++;
+                                }
+                            }
+
+                        }
+
+                        if(count==2) {
+                            Intent intent = new Intent(Login_screen.this, home_page_manager.class);
+
+                            startActivity(intent);
+                            count=0;
+                            finish();
+
+                            return;
+                        }
+
+
+
+                        }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
+
                 userDB.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -97,7 +150,9 @@ public class Login_screen extends AppCompatActivity {
 
                                     }
                                     if(count==2) {
+
                                         Intent intent = new Intent(Login_screen.this, HomePage.class);
+
                                         intent.putExtra("myUSER", usr);
                                         startActivity(intent);
                                         count=0;

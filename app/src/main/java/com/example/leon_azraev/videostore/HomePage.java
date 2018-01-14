@@ -3,7 +3,9 @@ package com.example.leon_azraev.videostore;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +15,23 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+
 public class HomePage extends AppCompatActivity {
 
 
     private static final int PERMISSION_REQUEST_CODE = 1;
     public Button button2;
     public Button read_me;
+    ImageView img;
+
 
     protected void onCreate(Bundle savedInstanceState) {
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -28,13 +39,33 @@ public class HomePage extends AppCompatActivity {
         Intent i=getIntent();
         User usr=(User)i.getParcelableExtra("myUSER");
 
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+//        StorageReference spaceRef = storageRef.child("Photos/"+usr.getUserName()+".png");
+
+
         TextView t1 = (TextView) findViewById(R.id.usrNameTxt);
         TextView t2 = (TextView) findViewById(R.id.firstNameTxt);
         TextView t3 = (TextView) findViewById(R.id.lastNameTxt);
         TextView t4 = (TextView) findViewById(R.id.emailTxt);
         TextView t5 = (TextView) findViewById(R.id.streetTxt);
         TextView t6 = (TextView) findViewById(R.id.cityTxt);
-        ImageView img = (ImageView) findViewById(R.id.imageView2);
+        img = (ImageView) findViewById(R.id.imageView2);
+
+
+        storageRef.child("Photos/"+usr.getUserName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+
+
+                Picasso.with(HomePage.this).load(uri).fit().centerCrop().into(img);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
 
         t1.setText(usr.getUserName());
         t2.setText(usr.getFirstName());

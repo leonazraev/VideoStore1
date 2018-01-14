@@ -177,6 +177,7 @@ public class Registration extends Activity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
+                
             }
         });
         Intent intent = new Intent(Registration.this, Login_screen.class);

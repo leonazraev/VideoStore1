@@ -172,7 +172,7 @@ public class Registration extends Activity {
         userDB.child(id).setValue(user);
         Uri uri = intent_upload.getData();
         mStorage = FirebaseStorage.getInstance().getReference();
-        StorageReference filepath = mStorage.child(un).child(uri.getLastPathSegment());
+        StorageReference filepath = mStorage.child("Photos").child(un);
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

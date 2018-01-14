@@ -21,6 +21,7 @@ public class Login_screen extends AppCompatActivity {
     public Button submit;
     public EditText user_name;
     public EditText password;
+    public boolean flag = false;
     private DatabaseReference userDB;
     private DatabaseReference userDB2;
 
@@ -51,7 +52,6 @@ public class Login_screen extends AppCompatActivity {
                         String u=user_name.getText().toString();
                         String p=password.getText().toString();
                         int count =0;
-
                         for (DataSnapshot k:dataSnapshot.getChildren()) {
 
                             if (k.getKey().equals("userName")) {
@@ -68,17 +68,8 @@ public class Login_screen extends AppCompatActivity {
                         }
 
                         if(count==2) {
-                            Intent intent = new Intent(Login_screen.this, home_page_manager.class);
-
-                            startActivity(intent);
-                            count=0;
-                            finish();
-
-                            return;
+                            flag = true;
                         }
-
-
-
                         }
 
                     @Override
@@ -150,15 +141,25 @@ public class Login_screen extends AppCompatActivity {
 
                                     }
                                     if(count==2) {
+                                        if (flag == true) {
 
-                                        Intent intent = new Intent(Login_screen.this, HomePage.class);
+                                            Intent intent = new Intent(Login_screen.this, HomePage.class);
+                                            startActivity(intent);
+                                            flag = false;
+                                            count = 0;
+                                            finish();
 
-                                        intent.putExtra("myUSER", usr);
-                                        startActivity(intent);
-                                        count=0;
-                                        finish();
+                                            return;
+                                        } else {
+                                            Intent intent = new Intent(Login_screen.this, home_page_manager.class);
 
-                                        return;
+                                            intent.putExtra("myUSER", usr);
+                                            startActivity(intent);
+                                            count = 0;
+                                            finish();
+
+                                            return;
+                                        }
                                     }
                                 }
 

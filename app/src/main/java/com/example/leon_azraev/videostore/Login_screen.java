@@ -21,7 +21,6 @@ public class Login_screen extends AppCompatActivity {
     public Button submit;
     public EditText user_name;
     public EditText password;
-    public boolean flag = false;
     private DatabaseReference userDB;
     private DatabaseReference userDB2;
 
@@ -68,7 +67,11 @@ public class Login_screen extends AppCompatActivity {
                         }
 
                         if(count==2) {
-                            flag = true;
+                            Intent intent = new Intent(Login_screen.this, home_page_manager.class);
+                            startActivity(intent);
+                            count = 0;
+                            finish();
+                            return;
                         }
 
 
@@ -152,7 +155,6 @@ public class Login_screen extends AppCompatActivity {
                                         finish();
 
                                         return;
-
                                     }
                                 }
 
@@ -160,14 +162,7 @@ public class Login_screen extends AppCompatActivity {
 
 
                         }
-                        if (flag == true) {
-                            Intent intent = new Intent(Login_screen.this, home_page_manager.class);
-                            startActivity(intent);
-                            count = 0;
-                            finish();
-
-                            return;
-                        } else if (count != 2) {
+                        if (count != 2) {
                             Toast.makeText(Login_screen.this, "No such user in the system", Toast.LENGTH_SHORT).show();
                         }
 

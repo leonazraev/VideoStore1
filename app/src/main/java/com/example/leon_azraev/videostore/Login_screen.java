@@ -70,7 +70,9 @@ public class Login_screen extends AppCompatActivity {
                         if(count==2) {
                             flag = true;
                         }
-                        }
+
+
+                    }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
@@ -141,25 +143,16 @@ public class Login_screen extends AppCompatActivity {
 
                                     }
                                     if(count==2) {
-                                        if (flag == true) {
 
-                                            Intent intent = new Intent(Login_screen.this, HomePage.class);
-                                            startActivity(intent);
-                                            flag = false;
-                                            count = 0;
-                                            finish();
+                                        Intent intent = new Intent(Login_screen.this, HomePage.class);
 
-                                            return;
-                                        } else {
-                                            Intent intent = new Intent(Login_screen.this, home_page_manager.class);
+                                        intent.putExtra("myUSER", usr);
+                                        startActivity(intent);
+                                        count = 0;
+                                        finish();
 
-                                            intent.putExtra("myUSER", usr);
-                                            startActivity(intent);
-                                            count = 0;
-                                            finish();
+                                        return;
 
-                                            return;
-                                        }
                                     }
                                 }
 
@@ -167,7 +160,14 @@ public class Login_screen extends AppCompatActivity {
 
 
                         }
-                        if(count!=2) {
+                        if (flag == true) {
+                            Intent intent = new Intent(Login_screen.this, home_page_manager.class);
+                            startActivity(intent);
+                            count = 0;
+                            finish();
+
+                            return;
+                        } else if (count != 2) {
                             Toast.makeText(Login_screen.this, "No such user in the system", Toast.LENGTH_SHORT).show();
                         }
 

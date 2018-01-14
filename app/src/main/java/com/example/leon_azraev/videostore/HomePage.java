@@ -42,8 +42,6 @@ public class HomePage extends AppCompatActivity {
         t4.setText(usr.getEmail());
         t5.setText(usr.getStreet());
         t6.setText(usr.getCity());
-
-
     }
 
     public void HomePage_to_MapsActivity() {

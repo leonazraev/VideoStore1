@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -172,7 +171,7 @@ public class Registration extends Activity {
         userDB.child(id).setValue(user);
         Uri uri = intent_upload.getData();
         mStorage = FirebaseStorage.getInstance().getReference();
-        StorageReference filepath = mStorage.child(un).child(uri.getLastPathSegment());
+        StorageReference filepath = mStorage.child("Photos").child(un);
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -183,6 +182,7 @@ public class Registration extends Activity {
         startActivity(intent);
         finish();
     }
+
    /* private void RegisterUser()
     {
         String Email = editTextEmail.getText().toString();
@@ -204,6 +204,7 @@ public class Registration extends Activity {
                     }
                 });
     }*/
+
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};
@@ -251,14 +252,15 @@ public class Registration extends Activity {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE) {
-                if (check_if_jpg_png(data) == true) {
+/*                if (check_if_jpg_png(data) == true) {
                     onSelectFromGalleryResult(data);
                 }
                 else
                 {
                     Toast.makeText(this, "Error: You must choose png or jpg type", Toast.LENGTH_LONG).show();
 
-                }
+                }*/
+                onSelectFromGalleryResult(data);
             } else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);
         }

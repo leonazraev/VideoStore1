@@ -10,14 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class HomePage extends AppCompatActivity {
 
 
     private static final int PERMISSION_REQUEST_CODE = 1;
-
+    public Button button2;
+    public Button read_me;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -33,6 +34,7 @@ public class HomePage extends AppCompatActivity {
         TextView t4 = (TextView) findViewById(R.id.emailTxt);
         TextView t5 = (TextView) findViewById(R.id.streetTxt);
         TextView t6 = (TextView) findViewById(R.id.cityTxt);
+        ImageView img = (ImageView) findViewById(R.id.imageView2);
 
         t1.setText(usr.getUserName());
         t2.setText(usr.getFirstName());
@@ -43,8 +45,7 @@ public class HomePage extends AppCompatActivity {
 
 
     }
-    public Button button2;
-    public Button read_me;
+
     public void HomePage_to_MapsActivity() {
         button2 = findViewById(R.id.button2);
         read_me = findViewById(R.id.read_me);

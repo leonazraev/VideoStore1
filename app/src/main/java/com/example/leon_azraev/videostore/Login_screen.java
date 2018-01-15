@@ -70,8 +70,8 @@ public class Login_screen extends AppCompatActivity {
                         }
 
                         if (count1 == 2) {
-                            Intent intent = new Intent(Login_screen.this, homepageactivity.class);
                             flag1 = true;
+                            Intent intent = new Intent(Login_screen.this, homepageactivity.class);
                             startActivity(intent);
                             finish();
                             return;
@@ -130,9 +130,9 @@ public class Login_screen extends AppCompatActivity {
                                             }
 
                                         }
+                                        flag2 = true;
                                         Intent intent = new Intent(Login_screen.this, HomePage.class);
                                         intent.putExtra("myUSER", usr);
-                                        flag2 = true;
                                         startActivity(intent);
                                         finish();
                                         return;
@@ -145,7 +145,6 @@ public class Login_screen extends AppCompatActivity {
                         }
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
-
                         }
                     });
                 }
@@ -154,12 +153,10 @@ public class Login_screen extends AppCompatActivity {
             }
         });
     }
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
         Login_screen_to_Registration();
         Login_screen_to_Homepage();
-
     }
 }

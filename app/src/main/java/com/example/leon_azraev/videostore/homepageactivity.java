@@ -32,21 +32,20 @@ public class homepageactivity extends AppCompatActivity {
                 String passVal;
                 int count = 1;
                 for (DataSnapshot k : dataSnapshot.getChildren()) {
-                    list.add("User" + count);
+                    list.add("        <><><>User" + count + "<><><>");
                     adapter.notifyDataSetChanged();
                     for (DataSnapshot d : k.getChildren()) {
 
-
                         if (d.getKey().equals("userName")) {
                             usrVal = d.getValue().toString();
-                            list.add("***User Name***");
+                            list.add("                User Name");
                             adapter.notifyDataSetChanged();
                             list.add(usrVal);
                             adapter.notifyDataSetChanged();
                         }
                         if (d.getKey().equals("password")) {
                             passVal = d.getValue().toString();
-                            list.add("***Password***");
+                            list.add("                Password");
                             adapter.notifyDataSetChanged();
                             list.add(passVal);
                             adapter.notifyDataSetChanged();

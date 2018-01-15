@@ -60,7 +60,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".home_page_manager"></activity>
+        <activity android:name=".homepageactivity"></activity>
     </application>
 
 </manifest>

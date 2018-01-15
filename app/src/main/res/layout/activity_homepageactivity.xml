@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bk4"
-    android:backgroundTint="@drawable/bk2"
-    tools:context="com.example.leon_azraev.videostore.home_page_manager">
+    tools:context="com.example.leon_azraev.videostore.homepageactivity">
 
 </android.support.constraint.ConstraintLayout>

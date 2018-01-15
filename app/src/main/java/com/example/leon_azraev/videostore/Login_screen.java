@@ -17,12 +17,14 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Login_screen extends AppCompatActivity {
-    public static int count1 = 0;
-    public static int count2 = 0;
+    public int count1 = 0;
+    public int count2 = 0;
     public Button register_;
     public Button submit;
     public EditText user_name;
     public EditText password;
+    boolean flag1 = false;
+    boolean flag2 = false;
     private DatabaseReference userDB;
     private DatabaseReference userDB2;
 
@@ -69,6 +71,7 @@ public class Login_screen extends AppCompatActivity {
 
                         if (count1 == 2) {
                             Intent intent = new Intent(Login_screen.this, homepageactivity.class);
+                            flag1 = true;
                             startActivity(intent);
                             finish();
                             return;
@@ -79,7 +82,7 @@ public class Login_screen extends AppCompatActivity {
 
                     }
                 });
-                if (count1 != 2) {
+                if (flag1 != true) {
                     userDB.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,7 +93,6 @@ public class Login_screen extends AppCompatActivity {
                             String p = password.getText().toString();
                             count2 = 0;
                             for (DataSnapshot k : dataSnapshot.getChildren()) {
-                                count2 = 0;
                                 for (DataSnapshot d : k.getChildren()) {
 
                                     if (d.getKey().equals("userName")) {
@@ -130,26 +132,25 @@ public class Login_screen extends AppCompatActivity {
                                         }
                                         Intent intent = new Intent(Login_screen.this, HomePage.class);
                                         intent.putExtra("myUSER", usr);
+                                        flag2 = true;
                                         startActivity(intent);
                                         finish();
                                         return;
                                     }
                                 }
-                                if (count2 == 2)
-                                    break;
                             }
-                            if (count2 != 2 && count1 != 2) {
+                            if (flag1 == false && flag2 == false) {
                                 Toast.makeText(Login_screen.this, "No such user in the system", Toast.LENGTH_SHORT).show();
-
                             }
                         }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
 
                         }
                     });
                 }
+                count1 = 0;
+                count2 = 0;
             }
         });
     }

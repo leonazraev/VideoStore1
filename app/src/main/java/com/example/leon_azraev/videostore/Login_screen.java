@@ -148,6 +148,8 @@ public class Login_screen extends AppCompatActivity {
                         }
                     });
                 }
+                flag1 = false;
+                flag2 = false;
                 count1 = 0;
                 count2 = 0;
             }

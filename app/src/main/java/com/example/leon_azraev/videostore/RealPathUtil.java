@@ -14,9 +14,7 @@ import android.support.v4.content.CursorLoader;
  * Created by Leon-Azraev on 04/01/2018.
  */
 
-public class RealPathUtil {
-
-
+public class RealPathUtil { // Take path from some android versions
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String getRealPathFromURI_API20(Context context, Uri uri){
         String filePath = "";

@@ -83,7 +83,7 @@ public class Registration extends Activity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) { //Permisson
         switch (requestCode) {
             case Utility.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -256,32 +256,7 @@ public class Registration extends Activity {
     public boolean check_if_jpg_png(Intent result) {
         Uri selectedImageUri = result.getData();
         String s = selectedImageUri.getPath();
- /*       if (Build.VERSION.SDK_INT < 11) {
-            if (RealPathUtil.getRealPathFromURI_BelowAPI11(this,selectedImageUri).toLowerCase().endsWith("png") || RealPathUtil.getRealPathFromURI_BelowAPI11(this,selectedImageUri).toLowerCase().endsWith("jpg")) {
-                // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
-
-                return true;
-            }
-
-            return false;
-        } else if(Build.VERSION.SDK_INT >= 11 && Build.VERSION.SDK_INT<= 19) {
-            if (RealPathUtil.getRealPathFromURI_API11to19(this,selectedImageUri).toLowerCase().endsWith("png") || RealPathUtil.getRealPathFromURI_API11to19(this,selectedImageUri).toLowerCase().endsWith("jpg"))
-
-            // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
-            {
-                return true;
-            }
-        } else if(Build.VERSION.SDK_INT > 19){
-            if (RealPathUtil.getRealPathFromURI_API20(this,selectedImageUri).toLowerCase().endsWith("png") || RealPathUtil.getRealPathFromURI_API20(this,selectedImageUri).toLowerCase().endsWith("jpg"))
-
-            // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
-            {
-                return true;
-            }
-        }*/
         if (getRealPathFromURI(selectedImageUri).toLowerCase().endsWith("png") || getRealPathFromURI(selectedImageUri).toLowerCase().endsWith("jpg")) {
-            // if(data1.getLastPathSegment().endsWith("png") || data1.getLastPathSegment().endsWith("jpg") || data1.getLastPathSegment().endsWith("PNG"))
-
             return true;
         }
         return false;

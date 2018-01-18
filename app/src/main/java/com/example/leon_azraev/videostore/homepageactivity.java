@@ -13,8 +13,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class homepageactivity extends AppCompatActivity {
-    DatabaseReference dbref;
+public class homepageactivity extends AppCompatActivity { // Manager Page that show user data
+    DatabaseReference dbref; //Reference to user DB
     ListView listview;
     ArrayList<String> list = new ArrayList<>();
     ArrayAdapter<String> adapter;
@@ -24,7 +24,7 @@ public class homepageactivity extends AppCompatActivity {
         listview = (ListView) findViewById(R.id.ListV);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, list);
         listview.setAdapter(adapter);
-        dbref = FirebaseDatabase.getInstance().getReference("Users");
+        dbref = FirebaseDatabase.getInstance().getReference("Users"); //Get Refernce to user and show the data in listview
         dbref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

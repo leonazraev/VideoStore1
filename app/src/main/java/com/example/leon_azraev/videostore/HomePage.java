@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -28,21 +27,15 @@ public class HomePage extends AppCompatActivity {
     public Button button2;
     public Button read_me;
     ImageView img;
-
-
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         HomePage_to_MapsActivity();
-        Intent i=getIntent();
-        User usr=(User)i.getParcelableExtra("myUSER");
 
-        FirebaseStorage storage = FirebaseStorage.getInstance();
+        Intent i = getIntent();
+        User usr = (User) i.getParcelableExtra("myUSER"); // get the user form login screen
+        FirebaseStorage storage = FirebaseStorage.getInstance(); // Reference to firebase strorage
         StorageReference storageRef = storage.getReference();
-//        StorageReference spaceRef = storageRef.child("Photos/"+usr.getUserName()+".png");
-
 
         TextView t1 = (TextView) findViewById(R.id.usrNameTxt);
         TextView t2 = (TextView) findViewById(R.id.firstNameTxt);
@@ -51,13 +44,12 @@ public class HomePage extends AppCompatActivity {
         TextView t5 = (TextView) findViewById(R.id.streetTxt);
         TextView t6 = (TextView) findViewById(R.id.cityTxt);
         img = (ImageView) findViewById(R.id.imageView2);
-
-
+        // get user Photo from Storage firebase by user name
         storageRef.child("Photos/"+usr.getUserName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
 
-
+                //Manage image From Storage to android
                 Picasso.with(HomePage.this).load(uri).fit().centerCrop().into(img);
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -80,12 +72,12 @@ public class HomePage extends AppCompatActivity {
         read_me = findViewById(R.id.read_me);
         read_me.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) { // on Click pass to read me
                 Intent intent = new Intent(HomePage.this, ReadMe.class);
                 startActivity(intent);
             }
         });
-        button2.setOnClickListener(new View.OnClickListener() {
+        button2.setOnClickListener(new View.OnClickListener() { // on Click pass to  MapsActivity
             @Override
             public void onClick(View view) {
                // requestPermission();
@@ -95,6 +87,7 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
+    //Permission
     private boolean checkPermission() {
         int result = ContextCompat.checkSelfPermission(HomePage.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (result == PackageManager.PERMISSION_GRANTED) {
@@ -104,6 +97,7 @@ public class HomePage extends AppCompatActivity {
         }
     }
 
+    //Permission Location
     private void requestPermission() {
             ActivityCompat.requestPermissions(HomePage.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},PERMISSION_REQUEST_CODE );
     }

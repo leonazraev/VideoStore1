@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class Login_screen extends AppCompatActivity {
-    public int count1 = 0; // User and password verification
+    public int count1 = 0; // User and password verificationz
     public int count2 = 0; // User and password verification
     public Button register_;
     public Button submit;

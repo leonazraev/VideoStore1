@@ -204,7 +204,7 @@ public class Registration extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == SELECT_FILE) {
+            if (requestCode == SELECT_FILE && check_if_jpg_png(data) == true) {
                 onSelectFromGalleryResult(data);
             } else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);

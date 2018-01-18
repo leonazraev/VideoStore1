@@ -148,7 +148,7 @@ public class Registration extends Activity {
         userDB.child(id).setValue(user); // insert user to DB
         Uri uri = intent_upload.getData();
         mStorage = FirebaseStorage.getInstance().getReference();
-        StorageReference filepath = mStorage.child("Photos").child(un); // insert image to storage
+        StorageReference filepath = mStorage.child("Photos").child(un); // insert image to storage 
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

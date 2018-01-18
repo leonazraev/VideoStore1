@@ -148,41 +148,38 @@ public class Registration extends Activity {
         userDB.child(id).setValue(user); // insert user to DB
         Uri uri = intent_upload.getData();
         mStorage = FirebaseStorage.getInstance().getReference();
-        StorageReference filepath = mStorage.child("Photos").child(un); // insert image to storage 
-        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        StorageReference filepath = mStorage.child("Photos").child(un); //create path to firebase storage
+        filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() { // insert image to storage
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
 
             }
         });
-        Intent intent = new Intent(Registration.this, Login_screen.class);
+        Intent intent = new Intent(Registration.this, Login_screen.class); // Pass to login screen
         startActivity(intent);
         finish();
     }
 
-    private void selectImage() {
+    private void selectImage() { // Dialog select image
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};
-
         AlertDialog.Builder builder = new AlertDialog.Builder(Registration.this);
         builder.setTitle("Add Photo!");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                boolean result = Utility.checkPermission(Registration.this);
-
-                if (items[item].equals("Take Photo")) {
+                boolean result = Utility.checkPermission(Registration.this); // Permission
+                if (items[item].equals("Take Photo")) { // on click "Take Photo" do
                     userChoosenTask = "Take Photo";
                     if (result)
                         cameraIntent();
-
                 } else if (items[item].equals("Choose from Library")) {
-                    userChoosenTask = "Choose from Library";
+                    userChoosenTask = "Choose from Library"; // on click "Choose from Library" do
                     if (result)
                         galleryIntent();
 
-                } else if (items[item].equals("Cancel")) {
+                } else if (items[item].equals("Cancel")) { // on click "cancel" do
                     dialog.dismiss();
                 }
             }
@@ -190,20 +187,20 @@ public class Registration extends Activity {
         builder.show();
     }
 
-    private void galleryIntent() {
+    private void galleryIntent() { // On select from gallery
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);//
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
 
-    private void cameraIntent() {
+    private void cameraIntent() { // On select from camera
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_CAMERA);
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) { //Result
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_OK) {
@@ -214,7 +211,7 @@ public class Registration extends Activity {
         }
     }
 
-    private void onCaptureImageResult(Intent data) {
+    private void onCaptureImageResult(Intent data) { // Make a new File from capture and save the image on imageview
         intent_upload = data;
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -239,7 +236,7 @@ public class Registration extends Activity {
     }
 
     @SuppressWarnings("deprecation")
-    private void onSelectFromGalleryResult(Intent data) {
+    private void onSelectFromGalleryResult(Intent data) { // Make a new File from gallery and save the image on imageview
        intent_upload = data;
         Bitmap bm = null;
 

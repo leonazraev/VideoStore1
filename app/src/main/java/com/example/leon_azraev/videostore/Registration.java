@@ -2,7 +2,6 @@ package com.example.leon_azraev.videostore;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,10 +37,8 @@ import static com.example.leon_azraev.videostore.R.layout.activity_registration;
 
 public class Registration extends Activity {
     public Button submit;
-    // private FirebaseAuth firebaseAuth;
-    DatabaseReference userDB;
-    DatabaseReference managerDB;
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    DatabaseReference userDB; // Reference to user table in the firebase
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1; //For true value
     private Button btnSelect;
     private ImageView ivImage;
     private String userChoosenTask;
@@ -53,16 +49,14 @@ public class Registration extends Activity {
     private EditText editTextCity;
     private EditText editTextEmail;
     private EditText editTextStreet;
-    private ProgressDialog progressDialog;
-    private String un;
-    private StorageReference mStorage;
-    private Intent intent_upload;
+    private String un; // The name for the image as the user name to upload to firebase
+    private StorageReference mStorage; //1reference for firebase storage
+    private Intent intent_upload; // Save the photo for firebase storage
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_registration);
-        userDB = FirebaseDatabase.getInstance().getReference("Users");
-      //  firebaseAuth = FirebaseAuth.getInstance();
+        userDB = FirebaseDatabase.getInstance().getReference("Users"); // Reference to User table in firebase
         editTextUser = (EditText) findViewById(R.id.user_name);
         editTextPassword = (EditText) findViewById(R.id.password_);
         editTextFN = (EditText)findViewById(R.id.first_name);
@@ -70,27 +64,21 @@ public class Registration extends Activity {
         editTextCity = (EditText)findViewById(R.id.city_);
         editTextEmail = (EditText)findViewById(R.id.email);
         editTextStreet = (EditText)findViewById(R.id.street);
-       // progressDialog = new ProgressDialog(this);
         submit = findViewById(R.id.submit);
         btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AddUserToDB();
-            //    RegisterUser();
-
-
+                AddUserToDB();  //On click First Save User data on firebase
             }
         });
-
-        //Registration_to_Homepage();
         btnSelect.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 selectImage();
             }
-        });
+        }); // on click select image
         ivImage = (ImageView) findViewById(R.id.ivImage);
     }
 
@@ -109,18 +97,6 @@ public class Registration extends Activity {
                 break;
         }
     }
-    public void Registration_to_Homepage() {
-        submit = findViewById(R.id.submit);
-
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-               // AddUserToDB();
-             //   RegisterUser();
-            }
-        });
-    }
     private void AddUserToDB()
     {
         String UserName = editTextUser.getText().toString();
@@ -132,7 +108,7 @@ public class Registration extends Activity {
         String Email = editTextEmail.getText().toString();
         un = UserName;
 
-        if(TextUtils.isEmpty(UserName))
+        if (TextUtils.isEmpty(UserName)) // if some value is empty
         {
             Toast.makeText(this,"You must enter a user name!",Toast.LENGTH_LONG).show();
             return;
@@ -169,10 +145,10 @@ public class Registration extends Activity {
         }
         String id = userDB.push().getKey();
         User user = new  User(UserName,Password,Email,FirstName,LastName,City,Street);
-        userDB.child(id).setValue(user);
+        userDB.child(id).setValue(user); // insert user to DB
         Uri uri = intent_upload.getData();
         mStorage = FirebaseStorage.getInstance().getReference();
-        StorageReference filepath = mStorage.child("Photos").child(un);
+        StorageReference filepath = mStorage.child("Photos").child(un); // insert image to storage
         filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -184,28 +160,6 @@ public class Registration extends Activity {
         startActivity(intent);
         finish();
     }
-
-   /* private void RegisterUser()
-    {
-        String Email = editTextEmail.getText().toString();
-        String Password = editTextPassword.getText().toString().trim();
-        progressDialog.setMessage("Register User...");
-        progressDialog.show();
-        firebaseAuth.createUserWithEmailAndPassword(Email,Password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
-                            Toast.makeText(Registration.this,"Register Successful!",Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            Toast.makeText(Registration.this,"Register Faild!!",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }*/
 
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
@@ -254,14 +208,6 @@ public class Registration extends Activity {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == SELECT_FILE) {
-/*                if (check_if_jpg_png(data) == true) {
-                    onSelectFromGalleryResult(data);
-                }
-                else
-                {
-                    Toast.makeText(this, "Error: You must choose png or jpg type", Toast.LENGTH_LONG).show();
-
-                }*/
                 onSelectFromGalleryResult(data);
             } else if (requestCode == REQUEST_CAMERA)
                 onCaptureImageResult(data);
